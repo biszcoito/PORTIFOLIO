@@ -4,8 +4,120 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio</title>
+  <style>
+    /* Estilos gerais */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Tela de carregamento */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loading span {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* Estilos da página */
+    #barba-wrapper {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .barba-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      background: linear-gradient(135deg, #ff7f50, #1e90ff);
+      color: white;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .intro h1 {
+      font-size: 3rem;
+      margin: 0;
+      letter-spacing: 2px;
+      animation: slideIn 1s ease-out;
+    }
+
+    .intro p {
+      font-size: 1.5rem;
+      margin: 10px 0;
+      animation: slideIn 1.5s ease-out;
+    }
+
+    .intro a {
+      display: inline-block;
+      font-size: 1.2rem;
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #333;
+      border-radius: 5px;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeInButton 2s 1s forwards;
+    }
+
+    /* Animações */
+    @keyframes slideIn {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInButton {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Tela de carregamento -->
+  <div class="loading">
+    <span>Carregando...</span>
+  </div>
+
   <div id="barba-wrapper" data-barba="wrapper">
     <div class="barba-container" data-barba="container" data-barba-namespace="home">
       <section class="intro">
@@ -16,5 +128,15 @@
     </div>
   </div>
 
+  <script>
+    // Remover tela de carregamento depois que a página carregar
+    window.onload = function() {
+      const loading = document.querySelector('.loading');
+      const barbaWrapper = document.querySelector('#barba-wrapper');
+      loading.style.display = 'none'; // Esconde a tela de carregamento
+      barbaWrapper.style.opacity = 1;  // Faz a página principal aparecer com fade-in
+    };
+  </script>
+  
 </body>
 </html>
