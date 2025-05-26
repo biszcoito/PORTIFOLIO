@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Luis Felipe - Portfólio Doce Encanto</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --cor-fundo-principal: #FFF5EE; /* Seashell - um creme bem clarinho */
+      --cor-elemento-claro: #FFFFFF; /* Branco puro para cards */
+      --cor-rosa-fofo: #FFB6C1;     /* LightPink - destaque principal */
+      --cor-rosa-hover: #FFC0CB;   /* Pink (um pouco mais forte para hover) */
+      --cor-azul-sereno: #ADD8E6;   /* LightBlue - destaque secundário */
+      --cor-azul-hover: #B0E0E6;    /* PowderBlue */
+      --cor-verde-menta: #98FB98;   /* PaleGreen - toques de frescor */
+      --cor-texto-principal: #778899; /* LightSlateGray - texto principal, não preto */
+      --cor-texto-suave: #A9A9A9;   /* DarkGray - para textos menos importantes */
+      --sombra-suave: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra bem leve */
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Pode trocar por 'Comic Sans MS' pra zoeira frufru rsrs */
+      background: var(--cor-fundo-principal);
+      color: var(--cor-texto-principal);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .cabecalho-site {
+      width: 100%;
+      padding: 0.8rem 2rem; /* Um pouco mais de padding vertical */
+      background: linear-gradient(135deg, var(--cor-rosa-fofo), var(--cor-azul-sereno));
+      color: var(--cor-fundo-principal); /* Texto do header contrastante */
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--sombra-suave);
+    }
+
+    .logo {
+      font-size: 1.6rem; /* Um pouco maior */
+      font-weight: bold;
+      /* text-shadow: 0 0 5px var(--cor-azul-neon); */
+    }
+
+    #brasil {
+      width: 10ch;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid var(--cor-fundo-principal);
+      animation: typing 2s steps(10, end), blink-caret-pastel .75s step-end infinite;
+      font-family: 'Courier New', Courier, monospace; /* Fonte mais fofinha/vintage */
+      font-size: clamp(1.4rem, 3.5vw, 1.8rem); /* Um pouco menor */
+      margin-left: 1rem;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 10ch }
+    }
+
+    @keyframes blink-caret-pastel {
+      from, to { border-color: transparent }
+      50% { border-color: var(--cor-fundo-principal); }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .secao {
+      width: 100%;
+      padding: 4rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid #E0E0E0; /* Divisória bem suave */
+    }
+    .secao:last-child {
+        border-bottom: none;
+    }
+
+    .secao-sobre {
+      background-color: transparent;
+      box-shadow: none;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      padding: 2rem 1rem;
+    }
+
+    .container-sobre-mim {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: flex-start; /* Para as colunas terem a mesma altura base */
+    }
+
+    .coluna-sobre {
+      background-color: var(--cor-elemento-claro);
+      border-radius: 15px; /* Bordas mais arredondadas */
+      box-shadow: var(--sombra-suave);
+      padding: 2.5rem; /* Mais padding interno */
+      border: 1px solid #F0F0F0;
+    }
+
+    .coluna-sobre.esquerda {
+      flex: 1;
+      min-width: 300px; /* Aumentar um pouco */
+      min-height: 480px; /* Aumentar um pouco */
+      text-align: center;
+      /* border-right: 2px dashed var(--cor-rosa-fofo); /* Divisória fofa opcional */
+    }
+
+    .espaco-foto {
+      width: 180px; /* Um pouco maior para o rosto */
+      height: 180px;
+      background-color: #FFF0F5; /* LavenderBlush para fundo foto */
+      border-radius: 50%;
+      margin: 0 auto 2rem auto; /* Mais margem abaixo */
+      overflow: hidden;
+      border: 6px solid var(--cor-rosa-fofo); /* Borda rosa */
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.5); /* Brilho rosa suave */
+    }
+
+    .espaco-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .saudacao-sobre {
+      font-size: clamp(1.15rem, 2.6vw, 1.35rem); /* Levemente maior */
+      line-height: 1.8;
+      color: var(--cor-texto-principal);
+    }
+    .saudacao-sobre strong {
+      color: var(--cor-rosa-fofo);
+      font-weight: 600; /* Menos "bold" */
+    }
+
+    .coluna-sobre.direita {
+      flex: 1.5;
+      min-width: 320px;
+      text-align: left;
+    }
+
+    .titulo-interno-sobre {
+        font-size: clamp(1.9rem, 4.2vw, 2.6rem);
+        color: var(--cor-azul-sereno);
+        /* text-shadow: 1px 1px 0px #FFF; */ /* Sombra branca sutil */
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .coluna-sobre.direita .botoes-acao {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .botoes-acao a {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.9rem 2rem; /* Botão um pouco maior */
+      background: var(--cor-rosa-fofo);
+      color: var(--cor-fundo-principal);
+      text-decoration: none;
+      border-radius: 30px; /* Bem arredondado */
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      font-weight: 500; /* Menos bold */
+      box-shadow: 0 3px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--cor-rosa-hover);
+    }
+
+    .botoes-acao a:hover {
+      background: var(--cor-rosa-hover);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    
+    .coluna-sobre.direita .lista-info {
+      font-size: 1rem;
+      list-style: none; /* '💕 ' pode ser adicionado com ::before se quiser frufru extremo */
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+      padding-left: 0;
+    }
+
+    .coluna-sobre.direita .lista-info li {
+      margin: 0.6rem 0;
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed var(--cor-azul-sereno); /* Linha azul clarinha */
+    }
+    /* .coluna-sobre.direita .lista-info li::before { content: '🌸 '; } /* frufru opcional */
+    .coluna-sobre.direita .lista-info li:last-child{
+        border-bottom: none;
+    }
+    .coluna-sobre.direita .lista-info li strong{
+        color: var(--cor-azul-sereno);
+        font-weight: 600;
+    }
+
+    .secao h1.titulo-secao {
+      font-size: clamp(2.2rem, 5.2vw, 3.2rem);
+      margin-bottom: 2.5rem;
+      color: var(--cor-rosa-fofo);
+      /* text-shadow: 1px 1px 1px #fff; */
+    }
+
+    section.links-navegacao {
+      position: relative;
+      width: 100%;
+      min-height: 700px; /* Manter altura por causa dos botões distantes */
+      padding: 2rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: visible; 
+      border-bottom: none;
+    }
+
+    .hover-area {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110px; /* Um pouco maior */
+      height: 110px;
+      background: var(--cor-elemento-claro);
+      border: 3px solid var(--cor-azul-sereno); /* Borda azul fofa */
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 20px; /* Mais arredondado */
+      box-shadow: var(--sombra-suave);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-area:hover {
+        transform: translate(-50%, -50%) scale(1.05) rotate(5deg); /* Efeito fofo no hover */
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    .hover-area span {
+        color: var(--cor-azul-sereno);
+        font-size: 0.75rem;
+        margin-top: 8px;
+        font-weight: 600;
+    }
+
+    .hover-area .menu-icon div {
+      width: 30px;
+      height: 4px; /* Barras um pouco mais grossas */
+      background: var(--cor-rosa-fofo); /* Barras rosa */
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hover-area.active .menu-icon div:nth-child(1) { transform: translateY(9px) rotate(45deg); } /* Ajuste de 9px para barra mais grossa */
+    .hover-area.active .menu-icon div:nth-child(2) { opacity: 0; }
+    .hover-area.active .menu-icon div:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+
+    .botoes-menu-container { 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+      z-index: 5;
+     }
+
+    .botao-menu {
+      position: absolute;
+      padding: 20px;
+      background: var(--cor-elemento-claro);
+      border: 2px solid var(--cor-rosa-fofo);
+      color: var(--cor-rosa-fofo);
+      font-weight: 600;
+      font-size: 1.1rem;
+      opacity: 0;
+      pointer-events: auto;
+      cursor: pointer;
+      width: 300px;
+      height: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transform-origin: center center;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      box-shadow: var(--sombra-suave);
+    }
+    .botao-menu:hover {
+        background: var(--cor-rosa-fofo);
+        color: var(--cor-fundo-principal); /* Texto mais escuro no hover do botão */
+        border-color: var(--cor-rosa-hover);
+        box-shadow: 0 6px 18px rgba(255,182,193,0.4);
+        transform: scale(1.03); /* Efeito fofo de zoom */
+    }
+
+    .botao-menu.pos1 { border-radius: 15px 15px 100px 15px; } /* Mais arredondado */
+    .botao-menu.pos2 { border-radius: 15px 100px 15px 15px; }
+    .botao-menu.pos3 { border-radius: 100px 15px 15px 15px; }
+    .botao-menu.pos4 { border-radius: 15px 15px 15px 100px; }
+
+
+    #secao-projetos .grade-projetos { display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+        text-align: left; }
+    .cartao-projeto {
+        background: var(--cor-elemento-claro);
+        border-radius: 15px;
+        box-shadow: var(--sombra-suave);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid var(--cor-azul-sereno);
+    }
+    .cartao-projeto:hover {
+        transform: translateY(-5px) rotate(-2deg); /* Efeito fofo */
+        box-shadow: 0 8px 20px rgba(173,216,230,0.4);
+    }
+    .cartao-projeto img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 3px solid var(--cor-azul-sereno);
+    }
+    .cartao-projeto .conteudo { padding: 1.5rem; }
+    .cartao-projeto .conteudo h3 {
+        color: var(--cor-rosa-fofo);
+        margin-bottom: 0.5rem;
+    }
+    .cartao-projeto .conteudo p {
+        font-size: 0.9rem;
+        color: var(--cor-texto-suave);
+        margin-bottom: 1rem;
+    }
+    .cartao-projeto .conteudo a {
+        color: var(--cor-azul-sereno);
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .cartao-projeto .conteudo a:hover {
+        text-decoration: underline;
+        color: var(--cor-azul-hover);
+    }
+
+    #secao-certificados ul {}
+    #secao-certificados li {
+        background-color: var(--cor-elemento-claro);
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        box-shadow: var(--sombra-suave);
+        border-left: 5px solid var(--cor-rosa-fofo); /* Destaque rosa */
+        color: var(--cor-texto-principal);
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #secao-contatos p { margin-bottom: 1.5rem; }
+    #secao-contatos a {
+        color: var(--cor-rosa-fofo);
+        font-weight: 600;
+        text-decoration: none;
+    }
+     #secao-contatos a:hover {
+        text-decoration: underline;
+        color: var(--cor-rosa-hover);
+    }
+
+    #secao-nacionalidade p { max-width: 700px; margin: 0 auto; font-size: 1.1rem; }
+
+    .rodape {
+        text-align: center;
+        padding: 2rem;
+        background: var(--cor-elemento-claro); /* Rodapé clarinho */
+        color: var(--cor-texto-suave);
+        font-size: 0.9rem;
+        border-top: 1px dashed var(--cor-rosa-fofo); /* Linha tracejada fofa */
+    }
+    .rodape a {
+        color: var(--cor-azul-sereno);
+        text-decoration: none;
+    }
+    .rodape a:hover {
+        text-decoration: underline;
+        color: var(--cor-azul-hover);
+    }
+
+    /* Media Queries (ajustes finos podem ser necessários com o novo tema) */
+    @media (max-width: 768px) {
+      .container-sobre-mim { flex-direction: column; align-items: center; }
+      .coluna-sobre { width: 100%; max-width: 500px; flex-basis: auto; }
+      .coluna-sobre.esquerda { order: 1; min-height: auto; /* Altura auto no mobile */ }
+      .coluna-sobre.direita { order: 2; text-align: center; }
+      .coluna-sobre.direita .lista-info{ text-align: left; display: inline-block; }
+      .titulo-interno-sobre { text-align: center; }
+
+      .cabecalho-site { padding: 0.8rem 1rem; flex-direction: column; gap: 0.5rem; }
+      #brasil { margin-left: 0; font-size: 1.3rem; }
+      section.links-navegacao { min-height: 550px; }
+      .botao-menu { width: 250px; height: 150px; font-size: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+        .secao { padding: 3rem 1rem; }
+        .coluna-sobre { padding: 1.5rem; }
+        .espaco-foto { width: 120px; height: 120px; }
+        .botao-menu { width: 200px; height: 120px; font-size: 0.9rem; }
+        .cabecalho-site .logo { font-size: 1.3rem; }
+        #brasil { font-size: 1.1rem; }
+        section.links-navegacao { min-height: 500px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="cabecalho-site">
+    <div class="logo">Luis Felipe</div>
+    <h1 id="brasil">BRILHANTE</h1> <!-- Palavra fofa -->
+  </header>
+
+  <main>
+    <section class="secao secao-sobre" id="sobre-mim">
+      <div class="container-sobre-mim">
+        <div class="coluna-sobre esquerda">
+          <div class="espaco-foto">
+            <img src="imgs/EU.jpeg" alt="Foto de Luis Felipe">
+          </div>
+          <p class="saudacao-sobre">Olá, que dia lindo! Eu sou <strong>LUIS FELIPE</strong>,<br>um Mago Criativo que adora dar vida à ideias com um toque de magia digital e muita fofura!</p>
+        </div>
+
+        <div class="coluna-sobre direita">
+          <h1 class="titulo-interno-sobre">Cantinho Sobre Mim</h1>
+          <div class="botoes-acao">
+            <a href="luis%20Felipe.pdf" download>Ver Meu Pergaminho</a>
+          </div>
+          <ul class="lista-info">
+            <li><strong>Missão Encantada:</strong> Tecelão de Sonhos Front-End</li>
+            <li><strong>Poções Mágicas:</strong> Design Fofo, Animações Adoráveis, UX/UI Aconchegante, Coisas Brilhantes</li>
+            <li><strong>Feitiços Poderosos:</strong> HTML5, CSS3, JavaScript (ES6+), GSAP, Design Responsivo & Mágico</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao links-navegacao" id="menu-principal">
+      <div class="hover-area">
+        <div class="menu-icon">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <span>MENU DOCINHO</span>
+      </div>
+
+      <div class="botoes-menu-container">
+        <!-- Botões JS -->
+      </div>
+    </section>
+
+    <section class="secao" id="secao-projetos">
+      <h1 class="titulo-secao">MEUS TESOUROS CRIATIVOS</h1>
+      <div class="grade-projetos">
+        <div class="cartao-projeto">
+          <img src="https://via.placeholder.com/400x200/FFB6C1/FFF5EE?text=Projeto+Sonho+1" alt="Placeholder Projeto 1">
+          <div class="conteudo">
+            <h3>Jardim Secreto Digital</h3>
+            <p>Um cantinho online interativo com plantinhas que crescem e animaizinhos fofos que respondem ao carinho do mouse.</p>
+            <a href="#" target="_blank">Abrir Portão Mágico →</a>
+          </div>
+        </div>
+        <div class="cartao-projeto">
+          <img src="https://via.placeholder.com/400x200/ADD8E6/FFF5EE?text=Projeto+Nuvem+2" alt="Placeholder Projeto 2">
+          <div class="conteudo">
+            <h3>Loja de Doces Encantados</h3>
+            <p>Um e-commerce para uma confeitaria mágica, com doces que flutuam e embalagens que brilham.</p>
+            <a href="#" target="_blank">Pegar um Docinho →</a>
+          </div>
+        </div>
+        <div class="cartao-projeto">
+            <img src="https://via.placeholder.com/400x200/98FB98/FFF5EE?text=Projeto+Floresta+3" alt="Placeholder Projeto 3">
+            <div class="conteudo">
+              <h3>Aventura na Floresta Fofa</h3>
+              <p>Um mini-jogo educativo onde você ajuda criaturinhas da floresta a encontrar frutinhas e fazer amigos.</p>
+              <a href="#" target="_blank">Começar Aventura →</a>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section class="secao" id="secao-certificados">
+      <h1 class="titulo-secao">PERGAMINHOS DE SABEDORIA</h1>
+      <p>Minhas conquistas e aprendizados mágicos que me ajudam a criar feitiços digitais ainda mais incríveis!</p>
+      <ul>
+        <li>Mestrado em Feitiçaria Web Avançada - Escola de Magia Pura (Ano dos Sonhos)</li>
+        <li>Workshop de Poções Animadas com GSAP - Caldeirão Encantado (Ano dos Sonhos)</li>
+        <li>Grimório de Design UX/UI Aconchegante - Biblioteca das Nuvens (Ano dos Sonhos)</li>
+        <li>Enciclopédia JavaScript dos Unicórnios - Bosque Secreto (Estudo Eterno)</li>
+      </ul>
+    </section>
+
+    <section class="secao" id="secao-contatos">
+      <h1 class="titulo-secao">MANDE UMA CORUJINHA</h1>
+      <p>Adoraria ouvir sobre seus sonhos e ideias! Vamos criar algo mágico juntos?</p>
+      <p>Carta Mágica (Email): <a href="mailto:seuemail@example.com">correiofofo@reinoencantado.com</a></p>
+      <p>Rede dos Sonhadores (LinkedIn): <a href="https://linkedin.com/in/seu-perfil" target="_blank">castelo_link/seu-perfil</a></p>
+      <p>Baú de Feitiços (GitHub): <a href="https://github.com/seu-usuario" target="_blank">github_magico/seus-codigos</a></p>
+    </section>
+
+    <section class="secao" id="secao-nacionalidade">
+      <h1 class="titulo-secao">CORAÇÃO BRASILEIRINHO</h1>
+      <p>Minha criatividade floresce com a alegria e o calor do Brasil, pintando cada projeto com cores vibrantes e um toque de magia tropical. A fofura é universal, mas a ginga é nossa!</p>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <p>© <span id="ano-atual"></span> Luis Felipe // Feito com Carinho e Pixels Brilhantes</p>
+    <p>Espalhando Amor e Códigos Fofos pelo Mundo! ✨</p>
+  </footer>
+
+  <script> // O JAVASCRIPT NÃO PRECISA DE ALTERAÇÃO PARA ESTA MUDANÇA DE TEMA
+    gsap.registerPlugin(ScrollTrigger);
+
+    const hoverArea = document.querySelector('.hover-area');
+    const menuIcon = document.querySelector('.menu-icon');
+    const botoesContainer = document.querySelector('.botoes-menu-container');
+    let menuAberto = false;
+
+    const itensMenu = [
+      { texto: 'TESOUROS', idDestino: 'secao-projetos', classeFormato: 'pos1', idBotao: 'botao-projetos' },
+      { texto: 'SABEDORIA', idDestino: 'secao-certificados', classeFormato: 'pos2', idBotao: 'botao-certificados' },
+      { texto: 'CORUJINHA', idDestino: 'secao-contatos', classeFormato: 'pos3', idBotao: 'botao-contatos' },
+      { texto: 'BRASIL', idDestino: 'secao-nacionalidade', classeFormato: 'pos4', idBotao: 'botao-brasilidade' }
+    ];
+
+    itensMenu.forEach(item => {
+        const botao = document.createElement('button');
+        botao.classList.add('botao-menu', item.classeFormato);
+        botao.id = item.idBotao;
+        botao.textContent = item.texto;
+        botao.dataset.target = item.idDestino;
+        gsap.set(botao, { scale: 0, opacity: 0, x: 0, y: 0 });
+        botoesContainer.appendChild(botao);
+    });
+    const botoesMenu = document.querySelectorAll('.botao-menu');
+
+    function posicionarBotoes(aberto) {
+        const posicoesFinais = { // Estes valores de posição dos botões são do seu código anterior
+            'botao-projetos':   { x: -400, y: -230 },
+            'botao-certificados': { x: -400, y:  100 },
+            'botao-contatos':    { x:  100, y:  100 },
+            'botao-brasilidade':{ x:  100, y: -230 }
+        };
+
+        botoesMenu.forEach((botao) => {
+            const id = botao.id;
+            const targetPos = posicoesFinais[id] || { x: 0, y: 0 }; 
+
+            const finalX = aberto ? targetPos.x : 0;
+            const finalY = aberto ? targetPos.y : 0;
+
+            let scaleFactor = 1;
+            if (window.innerWidth < 480) {
+                scaleFactor = 0.55;
+            } else if (window.innerWidth < 768) {
+                scaleFactor = 0.7;
+            }
+
+            const responsiveX = finalX * scaleFactor;
+            const responsiveY = finalY * scaleFactor;
+
+            gsap.to(botao, {
+                x: responsiveX,
+                y: responsiveY,
+                scale: aberto ? 1 : 0,
+                opacity: aberto ? 1 : 0,
+                duration: 0.6,
+                ease: aberto ? 'back.out(1.7)' : 'power1.in',
+            });
+        });
+    }
+        
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (menuAberto) {
+                posicionarBotoes(true);
+            }
+        }, 200);
+    });
+
+    hoverArea.addEventListener('click', () => {
+      menuAberto = !menuAberto;
+      hoverArea.classList.toggle('active', menuAberto);
+      posicionarBotoes(menuAberto);
+    });
+
+    botoesMenu.forEach(botao => {
+      botao.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const targetId = botao.dataset.target;
+        const targetElement = document.getElementById(targetId);
+        
+        if (menuAberto) {
+          menuAberto = false;
+          hoverArea.classList.remove('active');
+          posicionarBotoes(false); 
+        }
+
+        if (targetElement) {
+          setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }, 300); 
+        }
+      });
+    });
+
+    document.addEventListener('click', function(event) {
+        if (menuAberto && !hoverArea.contains(event.target) && !Array.from(botoesMenu).some(b => b.contains(event.target))) {
+            menuAberto = false;
+            hoverArea.classList.remove('active');
+            posicionarBotoes(false);
+        }
+    });
+
+    gsap.utils.toArray('.secao .titulo-secao, .saudacao-sobre, .coluna-sobre.direita .lista-info li, .cartao-projeto, #secao-certificados ul > *, #secao-contatos p, #secao-nacionalidade p, .coluna-sobre.direita .botoes-acao a, .espaco-foto, .titulo-interno-sobre').forEach(elem => {
+      gsap.from(elem, {
+        opacity: 0,
+        y: 30, // Movimento de subida mais suave
+        // filter: 'blur(5px)', // Blur removido para o tema fofo
+        scale: 0.95, // Entra com uma escala um pouco menor
+        duration: 0.9, // Duração um pouco maior e mais suave
+        ease: "circ.out", // Suavização circular
+        scrollTrigger: {
+          trigger: elem,
+          start: 'top 90%', // Começa a animação um pouco mais tarde
+          toggleActions: 'play none none none',
+        }
+      });
+    });
+
+    document.getElementById('ano-atual').textContent = new Date().getFullYear();
+
+    window.addEventListener('load', () => {
+      if (!sessionStorage.getItem('jaVisitouPortfolioFofo')) { // Nova chave de sessão
+        console.log("Bem-vindo ao mundo encantado!");
+        gsap.from("body", {opacity: 0, duration: 1.2, ease: "power1.inOut"});
+        gsap.from(".cabecalho-site", {y: -80, opacity:0, duration: 1, delay: 0.4, ease: "back.out(1.7)"});
+        gsap.from(".hover-area", {scale:0, opacity:0, duration:0.8, delay:1, ease:"elastic.out(1, 0.5)"});
+
+
+        sessionStorage.setItem('jaVisitouPortfolioFofo', 'true');
+      }
+    });
+  </script>
+</body>
+</html>
