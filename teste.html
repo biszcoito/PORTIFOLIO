@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Luis Felipe - Portfólio Criativo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7f6;
+      color: #333;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .cabecalho-site {
+      width: 300px;
+      padding: 0rem 2rem;
+      background:  #3554e1;
+      color: #ffffff;
+      justify-content: space-between;
+      margin: auto;
+      text-align: center;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 0px 0px 10px 10px
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    #brasil {
+      width: 10ch;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid rgba(255,255,255,0.75);
+      animation: typing 2s steps(10, end), blink-caret .75s step-end infinite;
+      font-family: monospace;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-left: 1rem;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 10ch }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: rgba(255,255,255,0.75); }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .secao {
+      width: 100%;
+      padding: 4rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .secao:last-child {
+        border-bottom: none;
+    }
+
+    .secao-sobre {
+      background-color: transparent;
+      box-shadow: none;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      padding: 2rem 1rem;
+    }
+
+    .container-sobre-mim {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    .coluna-sobre {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+      padding: 2rem;
+    }
+
+    .coluna-sobre.esquerda {
+      flex: 1;
+      min-width: 280px;
+      min-height: 452px;
+      text-align: center;
+    }
+
+    .espaco-foto {
+      width: 150px;
+      height: 150px;
+      background-color: #e9e9e9;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem auto;
+      overflow: hidden;
+      border: 5px solid #FFD700;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .espaco-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .saudacao-sobre {
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      color: #333;
+      line-height: 1.7;
+    }
+    .saudacao-sobre strong {
+      color: #009739;
+    }
+
+    .coluna-sobre.direita {
+      flex: 1.5;
+      min-width: 320px;
+      text-align: left;
+    }
+
+    .titulo-interno-sobre {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        color: #3E4095;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .coluna-sobre.direita .botoes-acao {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .botoes-acao a {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      background: #3E4095;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .botoes-acao a:hover {
+      background: #009739;
+      transform: translateY(-2px);
+    }
+    
+    .coluna-sobre.direita .lista-info {
+      font-size: 1rem;
+      list-style: none;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+      padding-left: 0;
+    }
+
+    .coluna-sobre.direita .lista-info li {
+      margin: 0.5rem 0;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #eee;
+    }
+    .coluna-sobre.direita .lista-info li:last-child{
+        border-bottom: none;
+    }
+    .coluna-sobre.direita .lista-info li strong{
+        color: #009739;
+    }
+
+    .secao h1.titulo-secao {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 2.5rem;
+      color: #009739;
+    }
+
+    section.links-navegacao {
+  position: relative;
+  width: 100%;
+  /* Tente aumentar este valor se os botões de baixo estiverem cortados */
+  min-height: 400px; /* Exemplo: aumentado de 550px para 600px */
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible; /* Importante para os botões não serem cortados */
+  border-bottom: none;
+}
+
+    .hover-area {
+      position: absolute;
+      top: 1px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 10px;
+      
+      transition: transform 0.3s ease;
+      width: 200px;
+      height: 10px;
+      border-top: 100px solid rgb(2,2,2);
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-bottom: 50px solid transparent;
+    }
+    .hover-area:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    .hover-area span {
+        color: white;
+        font-size: 0.7rem;
+        margin-top: 8px;
+        font-weight: bold;
+    }
+
+    .hover-area .menu-icon div {
+      position: relative;
+      top: -15px;
+      width: 30px;
+      height: 3px;
+      background: white;
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hover-area.active .menu-icon div:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hover-area.active .menu-icon div:nth-child(2) {
+        opacity: 0;
+    }
+    .hover-area.active .menu-icon div:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .botoes-menu-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .botao-menu {
+      position: absolute;
+      padding: 20px;
+      background: white;
+      border: 2px solid #3E4095;
+      color: #3E4095;
+      font-weight: bold;
+      font-size: 1.1rem;
+      opacity: 0;
+      pointer-events: auto;
+      cursor: pointer;
+      width: 300px;
+      height: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transform-origin: center center;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .botao-menu:hover {
+        background: #3E4095;
+        color: white;
+    }
+
+    .botao-menu.pos1 { 
+      border-radius: 10px 10px 100px 10px; 
+      width: 250px;
+      height: 100px;
+    }
+    .botao-menu.pos3 { 
+      border-radius: 100px 10px 10px 10px; 
+      width: 250px;
+      height: 100px;
+    }
+    .botao-menu.pos2 { 
+      border-radius: 10px 100px 10px 10px; 
+      width: 250px;
+      height: 100px;
+    }
+    .botao-menu.pos4 { 
+      border-radius: 10px 10px 10px 100px; 
+      width: 250px;
+      height: 100px;
+    }
+
+    #secao-projetos .grade-projetos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+        text-align: left;
+    }
+    .cartao-projeto {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cartao-projeto:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+    .cartao-projeto img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 3px solid #FFD700;
+    }
+    .cartao-projeto .conteudo {
+        padding: 1.5rem;
+    }
+    .cartao-projeto h3 {
+        color: #009739;
+        margin-bottom: 0.5rem;
+    }
+    .cartao-projeto p {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 1rem;
+    }
+    .cartao-projeto a {
+        color: #3E4095;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .cartao-projeto a:hover {
+        text-decoration: underline;
+    }
+
+    #secao-certificados ul {
+        list-style: none;
+        text-align: left;
+        max-width: 600px;
+        margin: 2rem auto;
+        padding-left: 0;
+    }
+    #secao-certificados li {
+        background-color: #fff;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border-left: 4px solid #FFD700;
+    }
+
+    #secao-contatos p {
+        margin-bottom: 1.5rem;
+    }
+    #secao-contatos a {
+        color: #009739;
+        font-weight: bold;
+        text-decoration: none;
+    }
+     #secao-contatos a:hover {
+        text-decoration: underline;
+    }
+
+    #secao-nacionalidade p {
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+    }
+
+    .rodape {
+        text-align: center;
+        padding: 2rem;
+        background: #333;
+        color: #aaa;
+        font-size: 0.9rem;
+    }
+    .rodape a {
+        color: #FFD700;
+        text-decoration: none;
+    }
+    .rodape a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container-sobre-mim {
+        flex-direction: column;
+        align-items: center;
+      }
+      .coluna-sobre {
+        width: 100%;
+        max-width: 500px;
+        flex-basis: auto;
+      }
+      .coluna-sobre.esquerda {
+        order: 1;
+      }
+      .coluna-sobre.direita {
+        order: 2;
+        text-align: center;
+      }
+      .coluna-sobre.direita .lista-info{
+        text-align: left;
+        display: inline-block;
+      }
+      .titulo-interno-sobre {
+          text-align: center;
+      }
+
+      .cabecalho-site {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      #brasil {
+        margin-left: 0;
+        font-size: 1.5rem;
+      }
+      section.links-navegacao {
+          min-height: 450px; /* Ajustado para mobile */
+      }
+      .botao-menu {
+          width: 250px;
+          height: 150px;
+          font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+        .secao {
+            padding: 3rem 1rem;
+        }
+        .coluna-sobre {
+            padding: 1.5rem;
+        }
+        .espaco-foto {
+            width: 120px;
+            height: 120px;
+        }
+        .botao-menu {
+            width: 200px;
+            height: 120px;
+            font-size: 0.9rem;
+        }
+        .cabecalho-site .logo {
+            font-size: 1.2rem;
+        }
+        #brasil {
+            font-size: 1.2rem;
+        }
+        section.links-navegacao {
+          min-height: 420px; /* Ainda menor em telas muito pequenas */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="cabecalho-site">
+    <div class="logo">LUIS FELIPE</div>
+  </header>
+    <section class="secao links-navegacao" id="menu-principal">
+      <div class="hover-area">
+        <div class="menu-icon">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="botoes-menu-container">
+        <!-- Botões serão adicionados aqui via JS -->
+      </div>
+    </section>
+  
+
+  <main>
+    <section class="secao secao-sobre" id="sobre-mim">
+      <div class="container-sobre-mim">
+        <div class="coluna-sobre esquerda">
+          <div class="espaco-foto">
+            
+            <img src="imgs/EU.jpeg" alt="Foto de Luis Felipe">
+          </div>
+          <p class="saudacao-sobre">Olá! Eu sou <strong>LUIS FELIPE</strong>,<br>um Desenvolvedor Criativo apaixonado por transformar ideias em experiências digitais incríveis e intuitivas.</p>
+        </div>
+
+        <div class="coluna-sobre direita">
+          <h1 class="titulo-interno-sobre">Sobre Mim</h1>
+          <div class="botoes-acao">
+            <a href="luis%20Felipe.pdf" download>Baixar Currículo</a>
+          </div>
+          <ul class="lista-info">
+            <li><strong>Profissão:</strong> Desenvolvedor Front-End</li>
+            <li><strong>Interesses:</strong> Web Design Moderno, Animações Interativas, UX/UI Focado no Usuário, Novas Tecnologias</li>
+            <li><strong>Habilidades Chave:</strong> HTML5, CSS3, JavaScript (ES6+), GSAP, Design Responsivo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao" id="secao-projetos">
+      <h1 class="titulo-secao">PROJETOS</h1>
+      <div class="grade-projetos">
+        <div class="cartao-projeto">
+          <img src="https://via.placeholder.com/400x200/009739/FFFFFF?text=Projeto+1" alt="Placeholder do Projeto 1">
+          <div class="conteudo">
+            <h3>Nome do Projeto Um</h3>
+            <p>Uma breve descrição do projeto, suas tecnologias e o desafio que resolveu. Lorem ipsum dolor sit amet consectetur.</p>
+            <a href="#" target="_blank">Ver Projeto →</a>
+          </div>
+        </div>
+        <div class="cartao-projeto">
+          <img src="https://via.placeholder.com/400x200/3E4095/FFFFFF?text=Projeto+2" alt="Placeholder do Projeto 2">
+          <div class="conteudo">
+            <h3>Website Criativo Co.</h3>
+            <p>Desenvolvimento de um website interativo para uma startup de design, focado em animações e experiência do usuário.</p>
+            <a href="#" target="_blank">Ver Projeto →</a>
+          </div>
+        </div>
+        <div class="cartao-projeto">
+            <img src="https://via.placeholder.com/400x200/FFD700/333333?text=Projeto+3" alt="Placeholder do Projeto 3">
+            <div class="conteudo">
+              <h3>App de Visualização de Dados</h3>
+              <p>Um aplicativo web que utiliza D3.js ou Chart.js para apresentar dados complexos de forma compreensível e visualmente atraente.</p>
+              <a href="#" target="_blank">Ver Projeto →</a>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section class="secao" id="secao-certificados">
+      <h1 class="titulo-secao">CERTIFICADOS</h1>
+      <p>Aqui estão alguns dos cursos e certificações que complementam minha formação e experiência.</p>
+      <ul>
+        <li>Colocar (2023)</li>
+        <li>Colocar (2023)</li>
+        <li>Colocar (2023)</li>
+        <li>Colocar (2023)</li>
+      </ul>
+    </section>
+
+    <section class="secao" id="secao-contatos">
+      <h1 class="titulo-secao">CONTATOS</h1>
+      <p>Gostou do meu trabalho ou quer trocar uma ideia? Entre em contato!</p>
+      <p>Email: <a href="mailto:luis.costa1@acad.ifma.edu.br">LuisFelipe@gmail.com</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/luis_bszc/" target="_blank">luis_bszc</a></p>
+      <p>GitHub: <a href="https://github.com/biszcoito/" target="_blank">LUIS_BSZC</a></p>
+    </section>
+
+    <section class="secao" id="secao-nacionalidade">
+      <h1 class="titulo-secao">BRASILIDADE</h1>
+      <p>Minha perspectiva brasileira influencia minha criatividade, trazendo uma abordagem vibrante e adaptável para resolver problemas e desenvolver projetos. Valorizo a colaboração, a inovação e a paixão em tudo que faço.</p>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <p>© <span id="ano-atual"></span> Luis Felipe. Todos os direitos reservados.</p>
+    <p>Feito com ❤️, Café e Código.</p>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const hoverArea = document.querySelector('.hover-area');
+    const menuIcon = document.querySelector('.menu-icon');
+    const botoesContainer = document.querySelector('.botoes-menu-container');
+    let menuAberto = false;
+
+    const itensMenu = [
+      { texto: 'PROJETOS', idDestino: 'secao-projetos', classeFormato: 'pos1', idBotao: 'botao-projetos' },
+      { texto: 'CERTIFICADOS', idDestino: 'secao-certificados', classeFormato: 'pos2', idBotao: 'botao-certificados' },
+      { texto: 'CONTATOS', idDestino: 'secao-contatos', classeFormato: 'pos3', idBotao: 'botao-contatos' },
+      { texto: 'BRASILIDADE', idDestino: 'secao-nacionalidade', classeFormato: 'pos4', idBotao: 'botao-brasilidade' }
+    ];
+
+    // Crie os botões e atribua IDs
+    itensMenu.forEach(item => {
+        const botao = document.createElement('button');
+        botao.classList.add('botao-menu', item.classeFormato);
+        botao.id = item.idBotao; // Adicionamos um ID para facilitar o direcionamento
+        botao.textContent = item.texto;
+        botao.dataset.target = item.idDestino;
+        gsap.set(botao, { scale: 0, opacity: 0, x: 0, y: 0 }); // Começa no centro
+        botoesContainer.appendChild(botao);
+    });
+    const botoesMenu = document.querySelectorAll('.botao-menu');
+
+    function posicionarBotoes(aberto) {
+        // --- AJUSTE ESTES VALORES PARA O ESPAÇAMENTO DESEJADO ---
+        // Distância do CENTRO do botão "MENU" ao CENTRO de cada botão de navegação.
+        // Para um espaço de ~20px entre as bordas dos botões (exemplo):
+        // distanciaX_centro_a_centro = (largura_hoverArea/2) + 20 + (largura_botaoMenu/2) = 50 + 20 + 150 = 220
+        // distanciaY_centro_a_centro = (altura_hoverArea/2) + 20 + (altura_botaoMenu/2) = 50 + 20 + 90 = 160
+        const posicoesFinais = {
+            // Para 'PROJETOS' (seu botao1, superior esquerdo)
+            // X negativo (esquerda), Y negativo (cima)
+            'botao-projetos':   { x: -400, y: -230 }, // <--- AJUSTE ESTES VALORES (Ex: -250, -160)
+
+            // Para 'CERTIFICADOS' (seu botao2, inferior esquerdo)
+            // X negativo (esquerda), Y positivo (baixo)
+            'botao-certificados': { x: -400, y:  100 }, // <--- AJUSTE ESTES VALORES (Ex: -250,  160)
+
+            // Para 'CONTATOS' (seu botao3, inferior direito)
+            // X positivo (direita), Y positivo (baixo)
+            'botao-contatos':    { x:  100, y:  100 }, // <--- AJUSTE ESTES VALORES (Ex:  250,  160)
+
+            // Para 'BRASILIDADE' (seu botao4, superior direito)
+            // X positivo (direita), Y negativo (cima)
+            'botao-brasilidade':{ x:  100, y: -230 }  // <--- AJUSTE ESTES VALORES (Ex:  250, -160)
+        };
+        // Os valores -220, 130 etc., são chutes baseados no cálculo de "centro a centro" anterior.
+        // Eles devem ser parecidos com os `distanciaXBaseCentroACentro` e `distanciaYBaseCentroACentro`
+        // da tentativa anterior, mas aqui você define para cada botão individualmente.
+
+        botoesMenu.forEach((botao) => {
+            const id = botao.id;
+            const targetPos = posicoesFinais[id] || { x: 0, y: 0 }; // Posição padrão caso ID não seja encontrado
+
+            // Se o menu estiver abrindo, usa a posição final. Se fechando, volta para o centro (0,0).
+            const finalX = aberto ? targetPos.x : 0;
+            const finalY = aberto ? targetPos.y : 0;
+
+            // Aplicar responsividade aos deslocamentos
+            let scaleFactor = 1;
+            if (window.innerWidth < 480) {
+                scaleFactor = 0.65;
+            } else if (window.innerWidth < 768) {
+                scaleFactor = 0.8;
+            }
+
+            const responsiveX = finalX * scaleFactor;
+            const responsiveY = finalY * scaleFactor;
+
+            gsap.to(botao, {
+                x: responsiveX,
+                y: responsiveY,
+                scale: aberto ? 1 : 0,
+                opacity: aberto ? 1 : 0,
+                duration: 0.6,
+                ease: aberto ? 'back.out(1.7)' : 'power1.in',
+                // Stagger agora é por botão, se quiser, mas pode remover se as posições são bem definidas
+                // delay: aberto ? Array.from(botoesMenu).indexOf(botao) * 0.1 : 0
+            });
+        });
+    }
+        
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (menuAberto) {
+                posicionarBotoes(true);
+            }
+        }, 200);
+    });
+
+    hoverArea.addEventListener('click', () => {
+      menuAberto = !menuAberto;
+      hoverArea.classList.toggle('active', menuAberto);
+      posicionarBotoes(menuAberto);
+    });
+
+    botoesMenu.forEach(botao => {
+      botao.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const targetId = botao.dataset.target;
+        const targetElement = document.getElementById(targetId);
+        
+        // Animação de fechar primeiro
+        if (menuAberto) {
+          menuAberto = false;
+          hoverArea.classList.remove('active');
+          posicionarBotoes(false); // Inicia a animação de fechar
+        }
+
+        // Rolar após um pequeno delay para a animação de fechar ser visível
+        if (targetElement) {
+          setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }, 300); // Delay um pouco maior para permitir a animação de 'scale:0'
+        }
+      });
+    });
+
+    document.addEventListener('click', function(event) {
+        if (menuAberto && !hoverArea.contains(event.target) && !Array.from(botoesMenu).some(b => b.contains(event.target))) {
+            menuAberto = false;
+            hoverArea.classList.remove('active');
+            posicionarBotoes(false);
+        }
+    });
+
+    gsap.utils.toArray('.secao .titulo-secao, .saudacao-sobre, .coluna-sobre.direita .lista-info li, .cartao-projeto, #secao-certificados ul > *, #secao-contatos p, #secao-nacionalidade p, .coluna-sobre.direita .botoes-acao a, .espaco-foto, .titulo-interno-sobre').forEach(elem => {
+      gsap.from(elem, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: elem,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        }
+      });
+    });
+
+    document.getElementById('ano-atual').textContent = new Date().getFullYear();
+
+    window.addEventListener('load', () => {
+      if (!sessionStorage.getItem('jaVisitouPortfolio')) {
+        console.log("Primeira visita nesta sessão!");
+        sessionStorage.setItem('jaVisitouPortfolio', 'true');
+      }
+    });
+  </script>
+</body>
+</html>
