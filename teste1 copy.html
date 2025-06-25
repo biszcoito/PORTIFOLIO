@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Luis Felipe - Portfólio Criativo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="pong/style.css">
+  <style>
+    /* Estilos Gerais (sem grandes mudanças) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7f6;
+      color: #333;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    main {
+      padding-top: 80px; /* Adiciona espaço para o cabeçalho fixo não cobrir o conteúdo */
+    }
+
+    /* ★★★ CSS DO CABEÇALHO MODIFICADO ★★★ */
+    .cabecalho-site {
+      width: 100%; /* Ocupa a largura toda */
+      padding: 0 2rem; /* Espaçamento nas laterais */
+      background: #3554e1;
+      color: #ffffff;
+      display: flex; /* Essencial para alinhar os itens */
+      justify-content: space-between; /* Itens espaçados igualmente */
+      align-items: center; /* Centraliza verticalmente */
+      position: fixed; /* Fixo no topo */
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      height: 80px; /* Altura fixa */
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      /* Faz com que o logo tenha flexibilidade, mas não encolha demais */
+      flex-shrink: 0; 
+    }
+    
+    .nav-container {
+      display: flex;
+      gap: 20px; /* Espaço entre os botões */
+    }
+
+    /* Estilo dos novos botões de navegação no header */
+    .nav-button {
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        text-decoration: none; /* Se usar <a>, para remover sublinhado */
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        font-size: 0.9rem;
+    }
+
+    .nav-button:hover {
+        background-color: white;
+        color: #3554e1;
+        transform: translateY(-2px);
+    }
+    
+    /* Remove a seção antiga do menu que explodia */
+    section.links-navegacao {
+        display: none;
+    }
+
+
+    /* Demais estilos (mantidos como estavam, omitidos por brevidade) */
+    .secao {
+      width: 100%;
+      padding: 4rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .secao:last-child {
+        border-bottom: none;
+    }
+
+    .secao-sobre {
+      background-color: transparent;
+      box-shadow: none;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      padding: 2rem 1rem;
+    }
+
+    .container-sobre-mim {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    .coluna-sobre {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+      padding: 2rem;
+    }
+
+    .coluna-sobre.esquerda {
+      flex: 1;
+      min-width: 280px;
+      min-height: 452px;
+      text-align: center;
+    }
+
+    .espaco-foto {
+      width: 150px;
+      height: 150px;
+      background-color: #e9e9e9;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem auto;
+      overflow: hidden;
+      border: 5px solid #FFD700;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .espaco-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .saudacao-sobre {
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      color: #333;
+      line-height: 1.7;
+    }
+    .saudacao-sobre strong {
+      color: #009739;
+    }
+
+    .coluna-sobre.direita {
+      flex: 1.5;
+      min-width: 320px;
+      text-align: left;
+    }
+
+    .titulo-interno-sobre {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        color: #3E4095;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .coluna-sobre.direita .botoes-acao {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .botoes-acao a {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      background: #3E4095;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .botoes-acao a:hover {
+      background: #009739;
+      transform: translateY(-2px);
+    }
+    
+    .coluna-sobre.direita .lista-info {
+      font-size: 1rem;
+      list-style: none;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+      padding-left: 0;
+    }
+
+    .coluna-sobre.direita .lista-info li {
+      margin: 0.5rem 0;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #eee;
+    }
+    .coluna-sobre.direita .lista-info li:last-child{
+        border-bottom: none;
+    }
+    .coluna-sobre.direita .lista-info li strong{
+        color: #009739;
+    }
+
+    .secao h1.titulo-secao {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 2.5rem;
+      color: #009739;
+    }
+
+    #secao-projetos .grade-projetos {
+        display: inline-block;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+        text-align: left;
+    }
+    .cartao-projeto {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cartao-projeto:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+    .cartao-projeto img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 3px solid #FFD700;
+    }
+    .cartao-projeto .conteudo {
+        padding: 1.5rem;
+    }
+    .cartao-projeto h3 {
+        color: #009739;
+        margin-bottom: 0.5rem;
+    }
+    .cartao-projeto p {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 1rem;
+    }
+    .cartao-projeto a {
+        color: #3E4095;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .cartao-projeto a:hover {
+        text-decoration: underline;
+    }
+
+    #secao-certificados ul {
+        list-style: none;
+        text-align: left;
+        max-width: 600px;
+        margin: 2rem auto;
+        padding-left: 0;
+    }
+    #secao-certificados li {
+        background-color: #fff;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border-left: 4px solid #FFD700;
+    }
+
+    #secao-contatos p {
+        margin-bottom: 1.5rem;
+    }
+    #secao-contatos a {
+        color: #009739;
+        font-weight: bold;
+        text-decoration: none;
+    }
+     #secao-contatos a:hover {
+        text-decoration: underline;
+    }
+
+    #secao-nacionalidade p {
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+    }
+
+    .rodape {
+        text-align: center;
+        padding: 2rem;
+        background: #333;
+        color: #aaa;
+        font-size: 0.9rem;
+    }
+    .rodape a {
+        color: #FFD700;
+        text-decoration: none;
+    }
+    .rodape a:hover {
+        text-decoration: underline;
+    }
+
+    /* Ajustes responsivos */
+    @media (max-width: 768px) {
+        .cabecalho-site {
+            flex-direction: column;
+            height: auto;
+            padding: 1rem;
+            gap: 1rem;
+        }
+        .nav-container {
+            gap: 10px;
+            flex-wrap: wrap; /* Permite que os botões quebrem linha */
+            justify-content: center;
+        }
+        main {
+            padding-top: 150px; /* Aumentar o espaço para o cabeçalho maior em mobile */
+        }
+        .nav-button {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+      /* Demais estilos responsivos */
+      .container-sobre-mim {
+        flex-direction: column;
+        align-items: center;
+      }
+      .coluna-sobre {
+        width: 100%;
+        max-width: 500px;
+        flex-basis: auto;
+      }
+      .coluna-sobre.esquerda { order: 1; }
+      .coluna-sobre.direita {
+        order: 2;
+        text-align: center;
+      }
+      .coluna-sobre.direita .lista-info{
+        text-align: left;
+        display: inline-block;
+      }
+      .titulo-interno-sobre {
+          text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- ★★★ HTML DO CABEÇALHO MODIFICADO ★★★ -->
+  <header class="cabecalho-site">
+    <!-- Contêiner para os botões da esquerda -->
+    <div id="nav-left" class="nav-container">
+        <!-- Botões da esquerda serão adicionados aqui pelo JS -->
+    </div>
+    
+    <!-- Nome no centro -->
+    <div class="logo">LUIS FELIPE</div>
+    
+    <!-- Contêiner para os botões da direita -->
+    <div id="nav-right" class="nav-container">
+        <!-- Botões da direita serão adicionados aqui pelo JS -->
+    </div>
+  </header>
+
+  <!-- Essa seção agora está oculta via CSS -->
+  <section class="secao links-navegacao" id="menu-principal"></section>
+
+  <main>
+    <!-- Todo o seu conteúdo <main> continua aqui, exatamente como antes -->
+    <section class="secao secao-sobre" id="sobre-mim">
+        <div class="container-sobre-mim">
+          <div class="coluna-sobre esquerda">
+            <div class="espaco-foto">
+              
+              <img src="assets/EU.jpeg" alt="Foto de Luis Felipe">
+            </div>
+            <p class="saudacao-sobre">Olá! Eu sou <strong>LUIS FELIPE</strong>,<br>um Desenvolvedor Criativo apaixonado por transformar ideias em experiências digitais incríveis e intuitivas.</p>
+          </div>
+  
+          <div class="coluna-sobre direita">
+            <h1 class="titulo-interno-sobre">Sobre Mim</h1>
+            <div class="botoes-acao">
+              <a href="assets/luis Felipe.pdf" download>Baixar Currículo</a>
+            </div>
+            <ul class="lista-info">
+              <li><strong>Profissão:</strong> Desenvolvedor Front-End</li>
+              <li><strong>Interesses:</strong> Web Design Moderno, Animações Interativas, UX/UI Focado no Usuário, Novas Tecnologias</li>
+              <li><strong>Habilidades Chave:</strong> HTML5, CSS3, JavaScript (ES6+), GSAP, Design Responsivo</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+  
+      <section class="secao" id="secao-projetos">
+        <h1 class="titulo-secao">PROJETOS</h1>
+        <div class="grade-projetos">
+          <div class="cartao-projeto">
+
+            <div class="conteudo">
+              <h1>Simples Joguin de Pong</h1>
+              <canvas id="pongCanvas" width="800" height="500"></canvas>
+            </div>
+          </div>
+          <div class="cartao-projeto">
+            <div class="conteudo">
+              <h3>Tower Defense</h3>
+              <p>Desenvolvimento de um website interativo para uma startup de design, focado em animações e experiência do usuário.</p>
+              <a href="tower defense/index.html" target="_blank">JOGAR AGORA</a>
+            </div>
+          </div>
+          <div class="cartao-projeto">
+              <img src="https://via.placeholder.com/400x200/FFD700/333333?text=Projeto+3" alt="Placeholder do Projeto 3">
+              <div class="conteudo">
+                <h3>App de Visualização de Dados</h3>
+                <p>Um aplicativo web que utiliza D3.js ou Chart.js para apresentar dados complexos de forma compreensível e visualmente atraente.</p>
+                <a href="#" target="_blank">Ver Projeto →</a>
+              </div>
+            </div>
+        </div>
+      </section>
+  
+      <section class="secao" id="secao-certificados">
+        <h1 class="titulo-secao">CERTIFICADOS</h1>
+        <p>Aqui estão alguns dos cursos e certificações que complementam minha formação e experiência.</p>
+        <ul>
+          <li>Colocar (2023)</li>
+          <li>Colocar (2023)</li>
+          <li>Colocar (2023)</li>
+          <li>Colocar (2023)</li>
+        </ul>
+      </section>
+  
+      <section class="secao" id="secao-contatos">
+        <h1 class="titulo-secao">CONTATOS</h1>
+        <p>Gostou do meu trabalho ou quer trocar uma ideia? Entre em contato!</p>
+        <p>Email: <a href="mailto:luis.costa1@acad.ifma.edu.br">LuisFelipe@gmail.com</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/luis_bszc/" target="_blank">luis_bszc</a></p>
+        <p>GitHub: <a href="https://github.com/biszcoito/" target="_blank">LUIS_BSZC</a></p>
+      </section>
+  
+      <section class="secao" id="secao-nacionalidade">
+        <h1 class="titulo-secao">BRASILIDADE</h1>
+        <p>Minha perspectiva brasileira influencia minha criatividade, trazendo uma abordagem vibrante e adaptável para resolver problemas e desenvolver projetos. Valorizo a colaboração, a inovação e a paixão em tudo que faço.</p>
+      </section>
+  </main>
+
+  <footer class="rodape">
+    <p>© <span id="ano-atual"></span> Luis Felipe. Todos os direitos reservados.</p>
+    <p>Feito com ❤️, Café e Código.</p>
+  </footer>
+
+  <script src="pong/pong.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ★★★ JAVASCRIPT SIMPLIFICADO PARA O NOVO LAYOUT ★★★
+
+    const navLeftContainer = document.getElementById('nav-left');
+    const navRightContainer = document.getElementById('nav-right');
+
+    const itensMenu = [
+      { texto: 'SOBRE MIM', idDestino: 'sobre-mim', lado: 'left' },
+      { texto: 'PROJETOS', idDestino: 'secao-projetos', lado: 'left' },
+      { texto: 'CERTIFICADOS', idDestino: 'secao-certificados', lado: 'right' },
+      { texto: 'CONTATOS', idDestino: 'secao-contatos', lado: 'right' }
+      // Removi a "Brasilidade" para manter o layout 2x2, mas você pode adicionar de volta.
+      // { texto: 'BRASILIDADE', idDestino: 'secao-nacionalidade', lado: 'right' } 
+    ];
+
+    // Criar e adicionar os botões nos contêineres corretos
+    itensMenu.forEach(item => {
+        const botao = document.createElement('button');
+        botao.classList.add('nav-button');
+        botao.textContent = item.texto;
+        botao.dataset.target = item.idDestino;
+        
+        if (item.lado === 'left') {
+            navLeftContainer.appendChild(botao);
+        } else {
+            navRightContainer.appendChild(botao);
+        }
+        
+        // Adiciona o evento de clique para rolar suavemente
+        botao.addEventListener('click', () => {
+            const targetElement = document.getElementById(item.idDestino);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Animações de Scroll (mantidas como antes)
+    gsap.utils.toArray('.secao .titulo-secao, .saudacao-sobre, .coluna-sobre.direita .lista-info li, .cartao-projeto, #secao-certificados ul > *, #secao-contatos p, #secao-nacionalidade p, .coluna-sobre.direita .botoes-acao a, .espaco-foto, .titulo-interno-sobre').forEach(elem => {
+      gsap.from(elem, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: elem,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        }
+      });
+    });
+
+    document.getElementById('ano-atual').textContent = new Date().getFullYear();
+
+  </script>
+</body>
+</html>
