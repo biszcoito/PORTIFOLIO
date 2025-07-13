@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Luis Felipe - Droga de Portfólio</title>
+  <title>Luis Felipe</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
@@ -16,13 +16,19 @@
     main { padding-top: 100px; }
 
     .maldito-cabecalho {
-        width: 100%; height: 80px; padding: 0 2rem; background: #3554e1;
+        width: 100%; height: 80px; padding: 0 2rem; background: linear-gradient(90deg,#3554e1,#002fff,#3554e1);
         color: #ffffff; display: flex; justify-content: space-between; align-items: center;
         position: fixed; top: 0; left: 0; z-index: 1000;
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         clip-path: polygon(0 0, 100% 0, 100% 100%, 53% 100%, 50% 50%, 47% 100%, 0 100%);
     }
+    #GUINDASTE{
+      margin: auto;
+      max-width: 60%;
+    }
     .logo-desgraca { font-size: 1.8rem; font-weight: bold; position: absolute; left: 50%; top: 15px; transform: translateX(-50%); }
+    .logo-desgrac { font-size: 1.8rem; font-weight: bold; position: absolute; left: 50%; top: 1px; transform: translateX(-50%); }
+    .logo-desgra { font-size: 1.8rem; font-weight: bold; position: absolute; left: 50%; top: -13px; transform: translateX(-50%); }
     .nav-container-que-nao-funciona { display: flex; gap: 20px; }
     .botao-inutil {
         background: transparent; border: 2px solid rgba(255, 255, 255, 0.7);
@@ -33,22 +39,22 @@
     #abre-logo-essa-droga, #menu-do-inferno { display: none; }
 
     .secao { width: 100%; padding: 4rem 1rem; text-align: center; border-bottom: 1px solid #e0e0e0; }
-    .grade-dos-projetos-sem-fim { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
-    .card-chato { background: #fff; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); overflow: hidden; transition: all 0.3s ease; }
+    .grade-dos-projetos-sem-fim { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 2rem; margin-top: 2rem; }
+    .card-chato { background: #fff; width: 70%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); overflow: hidden; transition: all 0.3s ease; }
     
     .foto-do-projeto {
         width: 100%;
         height: auto;
         display: block;
-        border-bottom: 3px solid #FFD700;
+        border-bottom: 3px solid #000000;
         margin-bottom: 1.5rem;
     }
     
     .clica-logo-nessa-porcaria {
         display: inline-block; padding: 12px 28px; margin-top: 1rem; border: none;
-        border-radius: 50px; background: linear-gradient(45deg, #FFD700, #ffb700);
+        border-radius: 50px; background: linear-gradient(45deg, #4688ec, #71affb);
         color: #333; text-transform: uppercase; font-weight: bold; text-decoration: none;
-        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        box-shadow: 0 4px 15px rgba(151, 203, 255, 0.4);
         transition: all 0.3s ease; animation: pulso-desgracado 2s infinite;
     }
     .clica-logo-nessa-porcaria:hover { transform: translateY(-3px) scale(1.05); animation-play-state: paused; }
@@ -59,7 +65,7 @@
     .caixa-de-tortura { display: flex; flex-wrap: wrap; gap: 2rem; max-width: 1000px; margin: 0 auto; align-items: flex-start; }
     .coluna-maldita { background: #fff; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.07); padding: 2rem; }
     .coluna-maldita.esquerda { flex: 1; min-width: 280px; text-align: center; }
-    .circulo-do-odio { width: 150px; height: 150px; background: #e9e9e9; border-radius: 50%; margin: 0 auto 1.5rem; overflow: hidden; border: 5px solid #FFD700; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .circulo-do-odio { width: 150px; height: 150px; background: #e9e9e9; border-radius: 50%; margin: 0 auto 1.5rem; overflow: hidden; border: 5px solid #6153fd58; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     .circulo-do-odio img { width: 100%; height: 100%; object-fit: cover; }
     .saudacao-cansada { font-size: clamp(1.1rem, 2.5vw, 1.3rem); color: #333; line-height: 1.7; }
     .saudacao-cansada strong { color: #009739; }
@@ -71,7 +77,7 @@
     .coluna-maldita.direita .lista-sem-fim li { margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px dashed #eee; }
     .coluna-maldita.direita .lista-sem-fim li:last-child { border-bottom: none; }
     .coluna-maldita.direita .lista-sem-fim li strong { color: #009739; }
-    .secao h1.titulo-da-secao { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 2.5rem; color: #009739; }
+    .secao h1.titulo-da-secao { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 2.5rem; color: #4300de; }
     .card-chato:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
     .card-chato .conteudo-chato { padding: 1.5rem; text-align: center; }
     .card-chato h3 { color: #009739; font-size: 1.25rem; margin-bottom: 0.75rem; }
@@ -82,7 +88,9 @@
     
     @media (max-width: 768px) {
         .maldito-cabecalho { clip-path: none; height: 70px; padding: 0 1.5rem; justify-content: space-between; align-items: center; display: flex; }
-        .logo-desgraca { transform: none; position: static; }
+        .logo-desgraca { display: none; }
+        .logo-desgrac { display: none; }
+        .logo-desgra { display: none; }
         .nav-container-que-nao-funciona { display: none; }
 
         #abre-logo-essa-droga {
@@ -103,7 +111,7 @@
         }
         .menu-aberto #menu-do-inferno { transform: translateX(0); }
         body.menu-aberto { overflow: hidden; }
-        #menu-do-inferno .botao-inutil { font-size: 1.5rem; padding: 1rem 2rem; }
+        #menu-do-inferno .botao-inutil { font-size: 1.5rem; padding: 1rem 2rem; width: 90%; }
         main { padding-top: 100px; }
         .caixa-de-tortura { flex-direction: column; align-items: center; }
         .coluna-maldita { width: 100%; max-width: 500px; }
@@ -113,7 +121,9 @@
 <body>
   
   <header class="maldito-cabecalho">
-    <div class="logo-desgraca">LUIS FELIPE</div>
+    <div class="logo-desgra">|</div>
+    <div class="logo-desgrac">⨼◆⨽</div>
+    <div class="logo-desgraca">⋌⋏⋋</div>
     <div class="nav-container-que-nao-funciona" id="botoes-da-esquerda-finalmente"></div>
     <div class="nav-container-que-nao-funciona" id="botoes-da-direita-inferno"></div>
     <button id="abre-logo-essa-droga" aria-label="Abrir menu">
@@ -128,15 +138,15 @@
         <div class="caixa-de-tortura">
           <div class="coluna-maldita esquerda">
             <div class="circulo-do-odio"><img src="assets/EU.jpeg" alt="Foto de Luis Felipe"></div>
-            <p class="saudacao-cansada">Olá! Eu sou <strong>LUIS FELIPE</strong>,<br>um Desenvolvedor Criativo que transforma ideias em... coisas.</p>
+            <p class="saudacao-cansada">Olá! Eu sou <strong>LUIS FELIPE</strong>,<br>um Desenvolvedor Criativo que transforma ideias em gambiarras e gambirras eu transformo em... sla.</p>
           </div>
           <div class="coluna-maldita direita">
             <h1 class="titulo-grande-e-chato">Sobre Mim</h1>
-            <div class="botoes-infernais"><a href="assets/luis Felipe.pdf" download>Baixar Currículo (se tiver coragem)</a></div>
+            <div class="botoes-infernais"><a href="assets/luis Felipe.pdf" download>Baixar Currículo</a></div>
             <ul class="lista-sem-fim">
-              <li><strong>Profissão:</strong> Sofredor de Front-End</li>
-              <li><strong>Interesses:</strong> Café, Dúvida Existencial, Fazer funcionar</li>
-              <li><strong>Habilidades Chave:</strong> HTML5, CSS3, JavaScript (o bastante pra dar raiva), GSAP</li>
+              <li><strong>PROFISSÃO:</strong> Futuro caixa do Mix, Se Deus quiser é claro</li>
+              <li><strong>INTERESSES:</strong> Café, Dúvida Existencial, Passar de Ano</li>
+              <li><strong>LINGUAGENS:</strong><br><strong>  ⋄ LEGAIS:</strong> <br>Ou se morre como herói, ou vive-se o bastante para se tornar o vilão. <br><strong> ⋄ NÃO LEGAIS:</strong><br>HTML5, CSS3, JS, PYTHON, JAVA, C, MySql</li>
             </ul>
           </div>
         </div>
@@ -148,19 +158,19 @@
           
           <div class="card-chato">
             <div class="conteudo-chato">
-              <img src="pong/pong.png" alt="Imagem do jogo Pong" class="foto-do-projeto">
+              <img src="assets/pong.png" alt="Imagem do jogo Pong" class="foto-do-projeto">
               <h3>Simples Jogo de Pong</h3>
-              <p>Uma recriação do clássico que deu um trabalhão.</p>
-              <a href="https://github.com/biszcoito" target="_blank" class="clica-logo-nessa-porcaria">JOGAR</a>
+              <p>Uma recriação do clássico que deu um trabalhão <br>Mentira mas tenha dó de mim (´。＿。｀).</p>
+              <a href="https://biszcoito.github.io/pong/" target="_blank" class="clica-logo-nessa-porcaria">JOGAR AGORA!</a>
             </div>
           </div>
 
           <div class="card-chato">
             <div class="conteudo-chato">
-              <img src="assets/tower-defense.png" alt="Imagem do jogo Tower Defense" class="foto-do-projeto">
+              <img src="assets/tower.png" alt="Imagem do jogo Tower Defense" class="foto-do-projeto">
               <h3>Tower Defense</h3>
-              <p>Defenda sua torre. Ou não. Sei lá.</p>
-              <a href="https://biszcoito.github.io/TOWER-DEFENSE/" target="_blank" class="clica-logo-nessa-porcaria">JOGAR AGORA!</a>
+              <p>Defenda sua base no meu jogo emocionante que deu tanto trabalho que nem IA ta dando conta ;-;<br> Ou não. Sei lá.</p>
+              <a href="https://biszcoito.github.io/TOWER-DEFENSE-CO-OP/" target="_blank" class="clica-logo-nessa-porcaria">JOGAR AGORA!</a>
             </div>
           </div>
 
@@ -181,13 +191,20 @@
     </section>
 
     <section class="secao" id="brasilidade-e-sofrimento">
-        <h1 class="titulo-da-secao">BRASILIDADE</h1>
-        <p>Ser brasileiro me ensinou a improvisar e resolver problemas com um cafezinho e um pouco de desespero.</p>
+        <h1 class="titulo-da-secao">DESABAFO</h1>
+        <P id="GUINDASTE">Para retirar o coquilho traseiro do guindaste Zulaine 75, você precisará seguir alguns passos com
+           cuidado para evitar danos ao equipamento. Primeiro, use equipamentos de proteção individual, como
+          luvas e óculos de segurança. Em seguida, localize o pino do coquilho e, se estiver preso, utilize
+          um martelo de borracha ou de metal para bater levemente nele. Se o pino ainda estiver muito difícil
+          de remover, use um punção ou um alicate de pressão para auxiliar na remoção. Se necessário, aplique
+          um lubrificante penetrante para facilitar a soltura do pino. Em casos mais complexos, pode ser
+          necessário o uso de um macaco hidráulico para aliviar a pressão. Se você não se sentir confortável
+          em realizar essa tarefa, é recomendável procurar a ajuda de um profissional qualificado</P>
     </section>
   </main>
 
   <footer class="rodape-finalmente">
-      <p>© <span id="ano-da-desgraca"></span> Luis Felipe. Droga, todos os direitos reservados.</p>
+      <p>© <span id="ano-da-desgraca"></span> Luis Felipe. Todos os direitos reservados.</p>
       <p>Feito com ódio, Café e Código que quebra sozinho.</p>
   </footer>
 
